@@ -1,0 +1,27 @@
+1. const variable
+2. const parameter:
+  int difference (const date& d) //& reference: save memory, const: no change
+3. const object: once object has been created, it cannot be changed
+  const date WW2(1945,9,2);
+  * const object only can call const member function
+4. const member function: does not modify the class object, should place the const keyword
+  int difference(const Date&d) const {...}
+  this pointer in this case is pointer to const because you can not change class member
+  
+// ** difficult example
+#include <iostream>
+using namespace std;
+void cbr(int& a) { cout << a << endl; }
+void cbcr(const int& a) { cout << a << endl; }
+int main()
+{
+int x {50}; const int y {100}; // initialize variable in C++ 11
+// Which of the following give(s) compilation error?
+cbr(x); // yes, same level of security
+cbcr(x); //yes, rase up level of security
+cbr(y); // no, lower down level of security. CANNOT
+cbcr(y); // yes
+cbr(1234); // no, nickname is for variable, not for value // create int temp variable, pass the temp int to cdr
+cbcr(1234); // yes, create int temp variable, pass the temp int to cbcr. Const reference accepts both name and unname object
+}
+  
