@@ -1,0 +1,14 @@
+//When th object is about to be killed, destructor will be called
+//must have only 1 destructor
+Word(const char* s, int k = 0): frequency(k)
+{ str = new char [strlen(s)+1]; strcpy(str, s); }
+˜Word() { delete [] str; }
+
+Word* p = new Word {"Titanic"};
+Word* x = new Word [5];
+delete p; // Destruct a single object
+delete [] x; // Destruct an array of objects
+
+//**** debugging: you should draw picture because of errors: memory leak, dangling pointer, double-deallocation
+// double-deallocation: no compilation error but runtime error
+
