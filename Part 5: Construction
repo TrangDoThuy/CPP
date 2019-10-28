@@ -1,0 +1,96 @@
+1. if all members in class are public, you can initialize with {}
+  class Word /* File: public-member-init.cpp */
+  {
+  public:
+  int frequency;
+  const char* str;
+  };
+  int main() { Word movie = {1, "Titanic"}; } // actually useless
+ 
+ 2. Default initialierx for Non-static data members (only for C++11)
+ class Word /* File: default-initializer.cpp */
+{
+int frequency {0}; //set value
+const char* str {nullptr}; // odder version cannot initialize data member
+};
+int main() { Word movie; }
+
+3. CONSTRUCTORS
+Word movie; // Default constructor
+Word director = "J. Cameron"; // Implicit conversion constructor (= sign) //ngầm
+Word sci_fi("Avatar"); // Explicit conversion constructor // rõ ràng
+Word drama {"Titanic"}; // C++11: Explicit conversion constructor
+Word* p = new Word("action", 1); // General constructor
+3.1 Default constructor: without passing anything
+  if you dont have any constructor, C++ will give you one constructor
+ 3.2 Conversion constructor: call it by passing one value to it
+  
+  //*** implicit conversion by suprise:
+  class Word
+  {
+    private:
+      int frequency; char* str;
+    public:
+      Word(char c)
+        { frequency = 1; str = new char[2]; str[0] = c; str[1] = '\0';
+            cout << "call implicit char conversion\n"; }
+      Word(const char* s) 
+      // if you put explicit:
+      // explicit Word(const char* s) means that it cannot do automatically
+        { frequency = 1; str = new char [strlen(s)+1]; strcpy(str, s);
+            cout << "call implicit const char* conversion\n"; }
+      void print() const { cout << str << " : " << frequency << endl; }
+      };
+  void print_word(Word x) { x.print(); }
+  int main() { print_word("Titanic"); //function print_word requires Word type, but it still works
+  // first pass "Titanic" to conversion constructor of word and get temporary object, pass the temporary object to function
+  // actually, you construct word x by tempt object
+  print_word('A');
+  return 0; }
+  
+  //*** explicit conversion constructor:
+    explicit Word(const char* s)
+    Word director = "James Cameron"; // Bug: implicit conversion
+    
+  3.3 Copy constructor: the most difficult:
+      Haha(const Haha& hehe){}
+      // get rid of const: no error
+      // get rid of & : infinite recursion, error because you have to construct hehe, and hehe, again and again
+      // true & false question
+      
+      //*** explicit keyword is only for constructor, never put it for regular function
+      
+  // example:
+  class Word{
+  ...
+  Word to_upper_case() const // return object x by value, need to create an temporary object, calling copy constructor
+15 {
+16 Word x(*this); // you are calling a copy constructor
+17 for (char* p = x.str; *p != '\0'; p++) *p += 'A' - 'a';
+18 return x;
+19 }
+20 };
+21 int main()
+22 {
+23 Word movie {"titanic"}; movie.print();
+24 Word song = movie.to_upper_case();// constructing an object song by temporary object// calling copy constructor
+song.print();
+25 }
+// C++ reduce number of temporary object created, so 1 time copy constructor called
+
+//** if you dont have copy constructor in class, C++ will provide you 1 copy constructor but it does memberwise copy
+// you need to define own copy constructor if your class have pointer or new ... in the constructor
+// otherwise just use copy constructor given by C++
+//shallow copy: member wise copy
+// deep copy: you get youw own array.
+
+
+
+  
+      
+  
+  
+    
+  
+
+ 
