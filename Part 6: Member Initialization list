@@ -1,0 +1,19 @@
+Word() : lang('E'), freq(0), str(nullptr) { };
+MIL only with constructor
+//** if you have successfull enter { in constructor, that means all the data members have been created
+// int$ hoho: if you define a nickname you should immediatly tell variable get nickname
+Word_Pair(const char* s1, const char* s2) : w1(s1,5), w2(s2) { }
+//                                         -------------------- create w1 and w2
+Word_Pair(const char* x, const char* y) { w1 = x; w2 = y; }
+//w1, w2 have been created by default constructor
+// in this case, 6 constructor functions have been called
+
+//** initialization of const or reference members:
+const int const_m = 3;
+int& ref_m = a;
+public:
+Example() { }
+Example(int c, int& r) : const_m(c), ref_m(r) { } // we will always follow MIL rather that default values
+// if you have const variable or reference data member, you must use MIL in each of constructor
+
+
