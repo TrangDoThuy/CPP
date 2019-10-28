@@ -1,0 +1,39 @@
+1. Class with dynamic data members
+The most important thing here is: 
+char* t="author";
+char* author= new char[strlen(t)+1];// if we dont't have this line: segment fault.// but it still runs @@
+strcpy(author,t);
+/*File book.h */
+#include <cstring>
+class Book{
+  private:
+  char* name;
+  char* author;
+  int num_pages;
+  public:
+    Book(int n=100){title=author=nullptr; num_pages=n;}
+    Book(const char* t, const char*a, int n=5){set(t,a,n);}
+    ~Book(){
+      delete []title;
+      delete []author;
+      }
+      void set (const char*t, const char*a, int n){
+      name = new char[strlen(t)+1]; // if we dont't have this line: segment fault
+      strcpy(title, t); 
+      author = new char[strlen(a)+1];
+      strcpy= new char[strlen(s)+1];
+      num_pages=n;
+      }
+ }; // always have ; after defining a class.
+/* File book.cpp */
+#include "book.h"
+void make_books(){
+  Book y("Love", "HKUST", 88);
+  Book* p =new Book[3];
+  p[0].set("book","author1",1);
+  p[1].set("book","author2", 2);
+  p[2].set("book3","author3",3);
+  delete []p;cout<<endl;
+  return;
+  }
+
