@@ -1,0 +1,42 @@
+1. If we have an array of object, delete[] will call the class destructor on each array element in reverse order:
+the last element first till the first one.
+
+2. the destructor of a static book is automatically called when it goes out of scope.
+
+3. struct{...}=class{public:....}
+  class{...}=struct{private:...} // default
+  class Haha{
+    int a; // private by default
+    }
+ 
+ 4. inline function: (just for function that has few lines of code)
+ inline int quas(int x){ return x*x;)
+ int main(){ int y=quad(10);}
+ //actually it does not create a new box and grab 10, but it replace x to 10:
+ // we have: 
+ // int main(){
+ // int y=10*10;
+ //}
+ // inline function helps to save memory and program will be faster.
+ 
+ inline funtion in class in 2 ways:
+ 1.  within the class body, they are inline functions:
+ class book{
+  void getName(){return name;}
+  inline void getAuthor(){return author;}// the keyword inline is optional
+ };
+ 2. under the definition of class in the samw file:
+ class book{
+ ....};
+ void pop(){...} // this is inline function.
+ 
+ HOWEVER:
+ it is impossible for incline function in defferent file with class definintion
+ for example:
+  class definition in file .h, and you add "inline" before any function in file ".cpp" it does not work.
+  
+ 5. Class scope: to access global variable using ::nameVariable
+ 6. this pointer: this pointer is set to point to the object.
+ 
+ 
+ 
