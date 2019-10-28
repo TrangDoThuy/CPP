@@ -85,6 +85,54 @@ song.print();
 // deep copy: you get youw own array.
 
 
+4. Default memberwise assignment:
+"=" "new" are actually functions
+Haha desmond = dave; //in fact = sign is function// memberwise copy 
+
+//*** there are 4 functions that you could obtain from C++: default constructor, copy constructor, destructor, operator = sign: memberwise copy
+//** if you have array in data member, no need to define a copy constructor,= function, C++ will do deep copy
+//** char poiter: you must define your own copy constructor
+
+void print() const // Also prints the address of object's str array
+{ cout << str << " : " << frequency << " ; "
+<< reinterpret_cast<void*>(str) << endl; }
+// for char * if you cout you will receive content, so you need to change other pointer type like void*, int*
+
+1. Word nothing; //default constructor
+2. Word dream grade(’A’); // explicit conversion constructor
+3. Word major {“COMP”};  //explicit conversion constructor
+4. Word hkust = “hkust”; //implicit conversion constructor // put explicit before conversion constructor, you will receive error
+5. Word exchange to(hkust); // explicit copy constructor
+6. Word grade = dream grade; //implicit copy constructor
+7. Word grade {dream grade}; //explicit copy constructor
+
+
+5. Using the {}
+  Word w(); // function prototype, NOT constructing object
+  Word word1{word2}; //copy constructor
+  Word w{}; //default constructor
+  
+6. functions with default argument:
+//****
+class Word // File: word.h
+{
+...
+public:
+Word(const char* s, int k = 1);
+}
+
+#include "word.h" // File: word.cpp
+Word::Word(const char* s, int k = 1)
+{
+...
+}
+
+//=>>error
+// you should put default value in one of 2 files (.h)
+
+
+  
+  
 
   
       
