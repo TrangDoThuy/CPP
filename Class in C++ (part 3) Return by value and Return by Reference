@@ -1,0 +1,65 @@
+This is the hardest thing I have ever encountered
+I. return object by value:
+1. Create an temporary object with the same content as the one you are returning
+2. Return temporary object back to main.
+II. return object by reference:( lvalue reference) : (for c++11 they have lvalue reference and rvalue reference)
+1. not return a temporary object, return exactly this object
+#include <iostream>
+using namespace std;
+int a=20;
+class Haha{
+  int a;// private by default
+  public:
+    Haha(int a) {
+    this ->a=a;
+    ::a=a;}//access global variable
+    Haha add1(const Haha& h){   //pass by reference: save memory and don't change // return object by value
+    a+=h.a; 
+    return *this; // dereference this: object that calls function
+    }
+    Haha* add2(const Haha& h){a+=h.a; return this;}
+    Haha& add3(const Haha& h){a+=h.a; return *this;}
+    void print() const{cout<<a<<endl;}// const function does not change data member in this function
+};
+//Example 1:
+int main(){
+  Haha h1(10);
+  Haha h2(20);
+  h1.add1(h2).add1(h2).print();
+ //--------- the object that we are going to call add1 function is temporary object which has the same content with h1
+ //--------- after this a in h1 is 30, a in temporary object is 30
+ //         ----------- chaning a in temporary object, to 50; then return it by value: create another temporary object
+  h1.print(); // 30
+}
+//Example 2:
+int main(){
+  Haha h1(10);
+  Haha h2(20);
+  h1.add3(h2).add3(h2).print();
+  //---------get back really h1
+  //-------------------get back h1
+  h1.print(); //50
+ }
+ //Example 3:
+ int main(){
+  Haha h1(10);
+  Haha h2(20);
+  h1.add2(h2)->add2(h2)->print();
+  //---------get back the pointer to h1
+  //-------------------get back the pointer to h1
+  h1.print(); //50
+ }
+ //Example 4:
+int main(){
+  Haha h1(10);
+  Haha h2(20);
+  Haha hehe = h1.add3(h2);
+  //           ----------- return object h1, but heheh is different object with h1, you use h1 to construct hehe
+  // HOWEVER:
+  Haha & hehe= h1.add3(h2); // hehe and h1 is exactly the same object
+  
+  // * difficult part
+  Haha & hehe = h1.add1(h2); //compilation error
+  //            ----------- return a temporary object
+  // explain: nickname is only for object with a name, but temporary object has no name
+  const Haha& hehe = h1.add1(h2);// constant reference nickname could be bounded to name object and unname object
