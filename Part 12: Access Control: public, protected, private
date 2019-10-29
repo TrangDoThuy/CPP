@@ -1,0 +1,29 @@
+// protected: you can access in the member function of this class and member functions of all derived classes
+// *** friends of the class: the derived class CANNOT access private member but friend class can
+// friend statement can be out anywhere (under private and public)
+class BingYen{
+  friend class Desmond;// Desmond can access all the data members and functions
+  private:
+  int money;
+  };
+class Desmond{
+  public:
+  void getMoney(BingYen & by){
+    by.money=0;} // error
+ };
+ int main(){
+  BingYen by(100000);
+  Desmond d;
+  d.getMoney(by);
+  }
+  
+  //*** another example
+  class Desmond{
+    friend class Dyyeng; // even Dyyend has not been created, but no error
+    };
+  int main(){
+  Desmond desmond;
+  }
+  
+  
+  
