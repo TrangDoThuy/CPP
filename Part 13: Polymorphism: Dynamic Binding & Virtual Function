@@ -1,0 +1,54 @@
+//***** important thing: if the one is virtual, all function in drived classes are virtual
+//static binding:
+// dynamic binding
+void print_label_r(const UPerson& uperson) { uperson.print(); }
+//                 -------------- call print function in Uperson
+// always call print function follow parameter type
+//**** example
+classs A{
+  public:
+     virtual void jj(){cout<<"jj in A"<<endl;} // we can call jj in B
+  //---------
+     };
+class B: public A{
+  public:
+  void jj(){cout<<"jj in B"<<endl;}
+  };
+ int main(){
+  A aObj;
+  B bObj;
+  aObj.jj(); // the jj in A
+  bObj.jj(); // the jj in B
+   A& hehe =bObj;
+   hehe.jj(); // output: jj in A
+   }
+ 
+ //1. define nickname hehe to bObj
+ //2. type of hehe is A 
+ //3. go to jj in A
+ // 4. see virtual keyword: hehe bound to bObj, and bObj is B type, ASK: what type of object you bound to?
+ // 5. go to jj in B
+ 
+ // if we dont have function jj in B
+ // actually, in B there is: void jj(){cout<<"jj in A"<<endl;}
+ 
+  class C: public B{
+    public: void jj(){cout<<"jj in C"<<endl;}
+    };
+     int main(){
+     A*p=new C; // out put is jj in C
+     p->jj;}
+     
+     //******
+     
+      int main(){
+     B*p=new C; // out put is jj in C // even in function jj of B dont have virtual, because function in A is virtual
+     p->jj;}
+//*****
+int main(){
+     B*p=new C; // out put is jj in B
+     p->B::jj; it is faster than the later // compilation time// static binding
+     p->jj();// runtime because pointer p can point at different object // dynamic binding
+     }
+
+
