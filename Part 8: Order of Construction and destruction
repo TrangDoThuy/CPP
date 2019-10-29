@@ -1,0 +1,185 @@
+//** =delete (only from C++ 11)
+Word(const Word& w) = delete; // C++ does not give you copy constructor// cannot create object using copy constructor
+Word z(y); // error, call copy constructor
+
+//** =default
+Word() = default; // Still want the simple default constructor // even you already have constructor
+//When an object A has an object B as a data member, we say
+//“A has a B.”
+//
+// if 
+ class Postoffice
+{
+Clock* clock;
+// Postoffice owns clock : you dont have it when you are born
+
+//*** important things:
+//*** if you dont have any new keyword: the order of constructors and destructors is reverse
+// ** before construct an object, make sure all data member ready
+//** rightbefore leave deconstructor: kill all data member
+//** create an object with no name: clock = Clock(800);
+//** for data member only {} and = sign:
+// A b2 = 10; // Call A's conversion constructor
+// A b3 {100};
+// CANNOT A B3(100);
+
+1. Order of Construction and destruction
+  class Clock{...}
+  class Postoffice{
+  Clock clock;
+  ...}
+  
+  int main(){
+  Postoffice x;    // construct Postoffice, before that make sure all data member ready: // create clock
+  // before kill x, call destructor of postoffice, before leave destructor, we need to kill all the data member: clock: call destructor of clock
+  }
+  // 1. Clock constructor
+  // 2. Postoffice constructor
+  // 3. Postoffice destructor
+  // 4. Clock destructor
+  
+  
+  //*** Example 2:
+  Order of Construction and destruction
+  class Clock{...}
+  class Postoffice{
+  Clock* clock;
+  ...}
+  
+  int main(){
+  Postoffice x; // call default constructor of x // clock* is just a pointer// you dont need to create clock object
+  
+  }
+  //1. Postoffice constructor
+  //2. Clock constructor : because of " clock = new Clock;"
+  //3. Postoffice destructor: just delete pointer, do not call clock destructor 
+  // this programming has memory leak
+  
+  //** Example 3:
+  class Clock /* File: postoffice3.h */
+{
+public:
+Clock() { cout << "Clock Constructor\n"; }
+˜Clock() { cout << "Clock Destructor\n"; }
+};
+class Postoffice
+{
+Clock* clock;
+public:
+Postoffice()
+{ clock = new Clock; cout << "Postoffice Constructor\n"; }
+˜Postoffice()
+{ cout << "Postoffice Destructor\n"; delete clock; }
+//--------------------------------- before delete clock, call destructor of class Clock, then delete pointer clock
+};
+
+//**** Example 4:
+class Clock /* File: postoffice4.h */
+{
+private: int HHMM; // hour, minute
+public:
+Clock() : HHMM(0)
+{ cout << "Clock Constructor\n"; }
+˜Clock() { cout << "Clock Destructor\n"; }
+};
+class Room
+{
+public:
+Room() { cout << "Room Constructor\n"; }
+˜Room() { cout << "Room Destructor\n"; }
+};
+class Postoffice
+{
+private:
+Room room; Clock clock; // make all data member ready, room first then clock
+public:
+Postoffice()
+{ cout << "Postoffice Constructor\n"; }
+˜Postoffice()
+{ cout << "Postoffice Destructor\n"; }
+};
+// 1. Room constructor
+//2. HHMM=0
+//3. Clock constructor
+//4. Post office constructor
+// 5. kill x
+//6. Post office destructor
+// 7. before leaving the destructor: kill clock: call destructor of clock then kill HHMM
+// 8. call destructor of room
+
+//** example 5: Postoffice has clock, clock has room
+class Clock /* File: postoffice5.h */
+{
+public:
+Clock() { cout << "Clock Constructor\n"; }
+˜Clock() { cout << "Clock Destructor\n"; }
+};
+class Room
+{
+private:
+Clock clock;
+public:
+Room() { cout << "Room Constructor\n"; }
+˜Room() { cout << "Room Destructor\n"; }
+};
+class Postoffice
+{
+private:
+Room room;
+public:
+Postoffice()
+{ cout << "Postoffice Constructor\n"; }
+˜Postoffice()
+{ cout << "Postoffice Destructor\n"; }
+};
+//1. get all the data member of Postoffice ready: room
+// 2. get all the data member of Room ready: clock
+// clock constructor
+// room constructor
+//postoffice constructor
+//end of main
+// postoffice destructor
+// room destructor
+// clock desturctor
+
+//*** if you dont have any new keyword: the order of constructors and destructors is reverse
+
+// Example 6:
+class Clock /* File: postoffice6.h */
+{
+private:
+int HHMM;
+public:
+Clock() : HHMM(0) { cout << "Clock Constructor\n"; }
+Clock(int hhmm) : HHMM(hhmm)
+{ cout << "Clock Constructor at " << HHMM << endl; }
+˜Clock() { cout << "Clock Destructor at " << HHMM << endl; }
+};
+class Postoffice
+{
+private:
+Clock clock;
+public:
+Postoffice()
+{ cout << "Postoffice Constructor\n"; clock = Clock(800); }
+˜Postoffice() { cout << "Postoffice Destructor\n"; }
+};
+
+// 1. clock constructor
+//2. postoffice constructor
+// clock=Clock(800)
+// before call conversion constructor: set HHMM=800
+// clock constructor
+// = function: do memberwise copy: HHMM in clock is 800
+// kill the temporary object, before that call destructor of clock: HHMM=800, kill HHMM
+
+// end of main
+// before leaving main call destructor of post office
+//then kill all data member: clock destructor HHMM=800
+//kill HHMM
+
+
+
+
+
+
