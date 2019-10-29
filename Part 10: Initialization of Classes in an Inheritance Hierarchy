@@ -1,0 +1,98 @@
+//*** put everything given by C++
+//****the order is construction of a class object
+//1. its parent
+//2. its data members
+//(in the order of their appearance in the class definition)
+//3. itself
+class A{
+private:
+  int a;
+ public:
+  A(int aa){a=aa;}
+};
+class B: public A{
+  private:
+     int b;
+  public:
+    B(int aa, int bb): A{aa},b{b}{};
+    //                ------- this is principle, you should use MIL
+    //* if you dont have, C++ will add:
+     B(int aa, int bb):A(){
+     b=bb;
+     }
+//***** example:
+Class A{
+public:
+A(){cout<<"A"<<endl;}
+};
+Class B: public A{
+  public: B(){cout<<"B"<<endl;}
+  //         :A()    * you should add(//*** put everything given by C++)
+  };
+Class C: public B{
+  public: C(){cout<<"C"<<endl;}
+  //         :B() * you should add
+  };
+  
+  //********************* difficult example
+  #include <iostream> /* File: init-order.cpp */
+using namespace std;
+class Address {
+public:
+Address() { cout << "Address's constructor" << endl; }
+˜Address() { cout << "Address's destructor" << endl; }
+};
+class UPerson {
+public:
+UPerson() { cout << "UPerson's constructor" << endl; }
+˜UPerson() { cout << "UPerson's destructor" << endl; }
+};
+class Student : public UPerson {
+public:
+Student() { cout << "Student's constructor" << endl; }
+˜Student() { cout << "Student's destructor" << endl; }
+private: Address address;
+};
+int main() { Student x; return 0; }
+
+// 1. Uperson constructor
+// 2. get data member ready: address: constructor:
+// address constructor
+// student constructor
+// check any new keyword
+// the order of destructor is reverse.
+
+
+  //********************* another difficult example
+  #include <iostream> /* File: init-order2.cpp */
+using namespace std;
+class Address {
+public:
+Address() { cout << "Address's constructor" << endl; }
+˜Address() { cout << "Address's destructor" << endl; }
+};
+class UPerson {
+public:
+UPerson() { cout << "UPerson's constructor" << endl; }
+˜UPerson() { cout << "UPerson's destructor" << endl; }
+private: Address address;
+};
+class Student : public UPerson {
+public:
+Student() { cout << "Student's constructor" << endl; }
+˜Student() { cout << "Student's destructor" << endl; }
+};
+int main() { Student x; return 0; }
+
+//address constructor
+//uperson constructor
+// student constructor
+// no new keyword
+//student destructor
+// uperson constructor
+// address constructor
+
+
+
+
+      
