@@ -1,0 +1,74 @@
+//** base class: Uperson
+//** derived class: student
+//** liskov substitution principle
+// uperson.h
+class UPerson
+{
+private:
+string name;
+Department dept;
+...}
+
+// student.h
+# include "uperson.h"
+class Student : public UPerson // Public inheritance
+//           -----------------
+{
+private:
+float GPA;
+Course* enrolled;
+int num_courses; // 5 data members: name, dept
+// add member function from uperson.h
+...}
+
+//***
+void some_func(UPerson& uperson, Student& student) {}
+//            ----------------- will accept all derived classes
+Student hehe;
+Uperson* haha=& hehe; // this pointer haha cannot call functions that are only in student class
+
+//***
+class Parent{};
+class Child: public Parent{
+  public:
+  void haha(){}
+};
+Parent parentObj = child; // right
+Child& childRef =parent; // wrong
+Child* childPtr = &parent; // wrong
+
+Parent* parentPtr = &child;
+parentPtr->haha(); // compilation error
+
+//****
+void print_label(const UPerson* uperson) {}
+void print_label(const UPerson& uperson) {}
+void print_label(const Student& student) {}
+
+int main() { // Which print_label()?
+Student tom("Tom", CIVL, 3.9); print_label(tom);  //call the third function
+UPerson& tom2 = tom; print_label(tom2); //call the second function
+UPerson* p = &tom; print_label(p); //call the first function
+}
+
+//******
+int main() {
+void dance(const UPerson& p); // Anyone can dance
+void dance(const UPerson* p); // Anyone can dance
+void study(const Student& s); // Only students study
+void study(const Student* s); // Only students study
+UPerson p("P", IELM); Student s("S", MAE, 3.3);
+// Which of the following statements can compile?
+dance(p); // the first dance
+dance(s); // the first dance
+dance(&p); // the second dance
+dance(&s); // the second dance
+study(s); // the first study
+study(p); //error
+study(&s); // the second study
+study(&p); // error
+}
+
+
+
+
