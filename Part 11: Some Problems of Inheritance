@@ -1,0 +1,51 @@
+// *****Problem 1: slicing:
+// copy constructor in uperson class:
+// Uperson(const Uperson& name){..} // slicing 
+int main()
+{
+Student student("Snoopy", CSE, 3.5);
+UPerson* pp = &student;
+UPerson* pp2 = new Student("Mickey", ECE, 3.4);
+UPerson uperson("Unknown", CIVL);
+uperson = student; // you cannot copy all data members, you just copy some of them
+
+student=uperson; // error
+
+Uperson* p=&student; // on slicing, slicing only occurs for object assignment.
+Uperson& q=child;//no slicing
+
+Uperson ppp{student}; //call copy constructor
+
+return 0;
+}
+
+//********Problem 2: Name conflicts 1
+class parent{
+  int jaja;
+  public:
+  void hoho(){cout<< jaja<<endl;}
+  };
+class child{
+   int jaja;
+   jaja=10;//jaja in child
+   parent::jaja=20;//jaja in parent
+   
+//** function overriding
+ class Child: public Parent{
+ public:
+ void lalala(){
+  Parent::lalala();
+  cout<<"hehhe";
+  }
+  };
+  //********Problem 2: Name conflits 2:
+  void smart(const B* p) { cout << "Inside smart(): "; p->f(); }
+  //        ----------- always follow type in parameter.
+ // page 33/111 topic 12
+ 
+ //***** problem 3: bad design:
+ 
+ 
+ 
+ 
+
