@@ -1,0 +1,30 @@
+class, object, inherintence, dynamic biding
+//***** important thing: if the one is virtual, all function in drived classes are virtual
+// you should put it all the time
+
+//*** all kind of function can be virtual: WRONG
+//** only member function can be virtual
+
+// virtual keyword before return type:
+virtual void print() const
+//**** int const Haha=10; CORRECT: const keyword and type can be flipped
+// const int* p=....;
+//int const* p=....;
+
+//*** virtual continue:
+//*** page 56/111 topic 12:
+UPerson* u; Teacher* t;
+cout << "\nUPerson object pointed by UPerson pointer:\n";
+u = &uperson; u->print();
+cout << "\nTeacher object pointed by Teacher pointer:\n";
+t = &teacher; t->print();
+cout << "\nTeacher object pointed by UPerson pointer:\n";
+u = &teacher; u->print();
+cout << "\nUPerson object pointed by Teacher pointer:\n";
+t = &uperson; t->print(); // Error: convert base-class ptr
+// to derived-class ptr
+
+
+
+
+
