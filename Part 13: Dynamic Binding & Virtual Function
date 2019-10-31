@@ -1,4 +1,5 @@
 //***** important thing: if the one is virtual, all the same function in drived classes are virtual
+//*******even: void fun() and void fun(int a=1) are different, and the second one will not be virtual
 //static binding (early binding): if you dont have virtual keyword
 // dynamic binding (late binding): if you have virtual keyword
 void print_label_r(const UPerson& uperson) { uperson.print(); }
