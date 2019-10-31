@@ -1,4 +1,4 @@
-//***** important thing: if the one is virtual, all function in drived classes are virtual
+//***** important thing: if the one is virtual, all the same function in drived classes are virtual
 //static binding (early binding): if you dont have virtual keyword
 // dynamic binding (late binding): if you have virtual keyword
 void print_label_r(const UPerson& uperson) { uperson.print(); }
