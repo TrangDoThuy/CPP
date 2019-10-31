@@ -1,0 +1,51 @@
+Run-time type information: check what type of object that it is pointing at?
+#include<typeinfo>
+//       --------- is needed to call typeid
+class Haha{};
+class Hehe: public Haha{};
+int main(){
+  Haha*p=new Hehe;
+  cout<<typeid(*p).name()<<endl; // return 4Haha (or Haha depend on the compiler)// because at this point you dont have virtual function
+  // typeid only accepts object, and return and object of the type type_info and name() is a function
+  if(typeid(*p)==typeid(Haha)) //compiler independent
+    cout<<"Haha type"<<endl;
+  delete p;
+  };
+  
+  //****** dynamic_cast():
+class Haha{
+public:
+virtual void hhh(){}};
+class Hehe: public Haha{};
+  int main(){
+    Hehe*p = dynamic_cast<Hehe*>(new Haha);// if you want to use dynamic_cast you have to have atleast on virtual function
+    //                    ----- result types
+    // pointer of hehe type cannot point to Haha object
+    //  return 4Hehe because now you have a virsual function
+    // actually  dynamic_cast uses (typeid)
+  }
+  
+  //*********** get rid of number before the name:
+  cout<<typeid(*p).name()+1<<endl;
+  //************ you can only use function overriding if you this function is VIRTUAL
+  
+  //***********C++11 override: in the derived class:
+  virtual void print() const override; // C++ does checking for us; if it's different: compilation error// it must be exactly same
+  
+  //????????????*** can flip override and const
+  //****
+  class Derived: public Base
+{
+int x {25};
+public:
+void f(int) const override;
+};
+// Don't repeat the keyword override here
+void Derived::f(int b) const { cout << x+b << endl; }
+
+//***********
+  
+  
+  
+  
+  
