@@ -1,0 +1,77 @@
+// ********review
+// after you call destructoc of derive class, C++ will automatically call destructor of bass class
+// no way to stop calling the destructor of bass class
+// destructor will be call when it out of scope or when you delte something
+// if you call function in constructor, you will really call the fuction in this class
+#include <iostream>
+using namespace std;
+class A{
+  private: 
+    int*p{nullptr};
+    int size;
+  public:
+    A(int sizeA): size(sizeA),
+                  p(new int(sizeA)){
+            cout<<"A ctor"<<endl;
+     }
+    virtual ~A(){  // the one in derive is also virtual
+    //______ you need to put virtual key word to prevent memory leak
+    // example: virtual ~Uperson()=default; ( call default destructor but still have virtual)
+     delete []p;
+     cout<<" A dtor"<<endl;
+     }
+};
+class B: public A{
+    private: 
+      int*q{nullptr};
+      int size;
+    public:
+      B(int sizeA, int sizeB): A(sizeA),size(sizeB),
+                                q( new int {sizeB}){
+           cout<<"B ctor"<<endl;
+           }
+      ~B(){
+           delete []q;
+           cout<<"B dtor"<<endl;
+           } // after call destructor B, call destructor A
+        };
+ int main(){
+  A* aPtr= new  B(10,20);
+  cout<<"Processing..."<<endl;
+  delete aPtr;// before delete aPtr it will call destructor B
+  // if no virtual in A, it will call destructor of A, then memory leak
+ }
+ 
+ 
+ //**** more virtual inheritant:
+ class A{};
+ class B: public A{};
+ class C: public A{};
+ class D: public B,C{};
+ //***********
+  // if you call function in constructor, you will really call the fuction in this class
+  
+#include <iostream> /* File: construct-vf.cpp */
+using namespace std;
+class Base {
+public:
+Base() { cout << "Base's constructor\n"; f(); } // if you call function in constructor,
+//you will really call the fuction in this class, "Base::f()"// also because the member function is not yet created
+virtual void f() { cout << "Base::f()" << endl; }
+};
+class Derived : public Base {
+public:
+Derived() { cout << "Derived's constructor\n"; }
+virtual void f() override { cout << "Derived::f()" << endl; }// overide: C++ does checking for you
+};
+int main() {
+Base* p = new Derived;
+cout << "Derived-class object created" << endl;
+p->f();
+}  
+  
+ 
+ 
+ 
+ 
+ 
