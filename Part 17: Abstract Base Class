@@ -1,0 +1,45 @@
+class Car{//abstract base class
+  public:
+    virtual int getSpeed() const=0; // pure virtual function
+};
+class BMW: public Car{
+  public:
+    int getSpeed() const{return 200;}
+    //*** if
+    //int getSpeed() const{return 200;}: BMW is also an abstract base class
+};
+int main(){
+   Car c; // you cannot do it, because function member is not yet implemented
+   // you cannot pass car by value or return car by value
+   // but you can pass by pointer or reference
+   Car* c; // doable
+   BMW bmw;
+   Car& haha=bmw; // doable
+   
+}
+
+// **************example:
+Personal_Asset x("20010/01/01"); // Error: can't create ABC object
+Personal_Asset f1(int x) { /* .. */ } // Error: can't return ABC object
+int f2(Personal_Asset x) { /* .. */ } // Error: can't CBV with ABC object
+Bank_Acc_Asset b("01/01/2000", 0.0); // OK!
+Personal_Asset* p_asset_ptr = &b; // OK!
+Personal_Asset& p_asset_ref = b; // OK!
+Personal_Asset* f3(const Personal_Asset& x) { /* incomplete */ } // OK!
+
+//**************
+class Car{//abstract base class
+  public:
+    virtual int getSpeed() const=0; // pure virtual function
+};
+int Car::getSpeed()const{return 100;}
+class BWM: public Car{
+  public:
+    int getSpeed() const {return Car::getSpeed();}
+};
+int main(){
+  Car c; // compilation error, you still cannot create car object
+  }
+
+
+
