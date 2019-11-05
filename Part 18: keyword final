@@ -1,0 +1,18 @@
+// *************case one:
+class A {};
+ class B: public A {};
+ class C final: public B {};// C cannot have offspring
+ class D: public B {};
+ class E: public C {}; // error
+ 
+ //************** case two:
+ class Student : public UPerson {
+ public: /* Other data and functions */
+ virtual void print() const override final { /* incomplete */ } // no more override function
+ };
+ class PG_Student : public Student {
+ public: /* Other data and functions */
+ virtual void print() const { /* incomplete */ } // error  even you dont mention override
+ 
+ };
+
