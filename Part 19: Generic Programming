@@ -1,0 +1,141 @@
+// with function template we can get size of array
+//***
+Haha operator+ (const Haha& h, const Haha& k){}
+//          ---
+// create smt new, return by value
+// cannot return temporary object by reference or pointer
+int main(){
+Haha Peter = desmond + bingyen;
+}
+
+
+//***** function template
+template <typename T>
+T my_max( T a, T b){
+  return (a>b)?a:b;
+}
+
+int main(){
+double max=my_max<double>(2,5.1);
+//               -------- T should be double
+double max=my_max(2,5.1);
+//               ------- compilation error; no matching function to call my_max(int,double)
+}
+
+//****** class template
+template <typename T>
+//template <class T>: the same
+class node{
+  T data;
+  node* next;
+};
+
+//*** common error
+template <class T> T* create() { return new T; };
+template <class T> void f() { T a; cout << a << endl; }
+int main() { create(); f(); }
+//           --------------- error
+// create <int>();
+
+//***** class template:
+template <typename T>
+class List_Node // is class template
+{
+public:
+List_Node(const T& x) : data(x) { }
+List_Node* next {nullptr};
+List_Node* prev {nullptr};
+T data;
+};
+
+//******
+template <typename T> class List
+{
+private:
+List_Node<T>* head {nullptr};
+// say that List_Node is class template
+List_Node<T>* tail {nullptr};
+};
+//*********** for class template, you must specify what is T
+List<char> letters;
+//  -------: define T
+List<int> primes;
+//  -----
+
+
+//**** if you define function template with bugs, but you dont use this, then no compilation error
+//**** template <typename T, int max_num_items>
+//                           ----------------- : constant integer variable
+
+template <typename T, int haha>
+//                   ----- template non-type parameter: just int, char, enum
+class Haha{
+  public:
+  voit test(){haha=10}};
+main(){
+Haha<int,999>h;
+h.func();
+}
+
+//************************************************
+template<typename T, unsigned int SIZE>
+inline unsigned int check_array_size(T (&arr)[SIZE]){
+//                                  ---------------- pass array by reference
+//                               C++ will predict T and SIZE for you
+return SIZE;
+}
+int main(){
+int arr[] = { 1, 2, 3, 4, 5, 6 };
+const int SIZE = check_array_size(arr);
+cout << "Size of array: " << SIZE << endl;
+return 0;
+}
+
+//************************************************* template specialization:
+template <typename T> bool equals(T a, T b) {
+//       ------------            ---   ---
+cout << "Generic function template is called\n"; return a == b;
+}
+// Template specialization: A function specialized only for float data type
+template <> bool equals<float>(float a, float b) {
+//       --            -------------    -----
+cout << "Specialized function template (float type) is called\n";
+return fabs(a - b) < numeric_limits<float>::epsilon();
+}
+
+
+// you can also just define new function, it still works:
+bool equals(float a, float b){}
+
+//***** class template specialization:
+template <typename T>
+class Wrapper {
+private:
+T x;
+public:
+Wrapper(T x) : x(x) { cout << "Wrapper(T x) is called\n"; }
+bool equals(T y);
+};
+template <typename T>
+// once you put T, you need to put this line.
+bool Wrapper<T>::equals(T y) { return x == y; }
+
+template <>
+class Wrapper <double> {};
+bool Wrapper<double>::equals(double y) {}
+
+//**** seprate compilation for templates:
+you cannot separate into 2 file .h and .ccp
+everything must be in .h
+// in .h file, you can #include "Haha.tpp"
+//then source file is .tpp
+// haha.tpp
+template <typename T>
+void Haha<T>::func(T a){}
+// it is better to compile everything in one file
+
+
+
+
+
+
