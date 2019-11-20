@@ -1,6 +1,7 @@
-//1. continuous/ container
-//2. iterator
-//3. algorithm
+//1. container: class template
+// 2. iterator: class inside class template
+//3. algorithm: function template
+  
 
 //1. Operator<< as a friend function template:
 template <typename T> /* File: array-w-os-friend.h */
@@ -41,10 +42,69 @@ for(p=v.begin();p!=v.end();++p)
 //v.end doesnt give you the address of the last element, v.end() gives you the address of the location 
 // after the last one.
 
-//1. container: class template
-// 2. iterator: class inside class template
-//3. algorithm: function template
+const int SIZE = 10; vector<int> x(SIZE);
+//                   -------------------- you are going to pass SIZE to constructor of vector
+// size is not capacity of container, it is the number of elements in the vector
+for (int i = 0; i < x.size(); i++)
+x[i] = 2 * i;
+// we are accessing each of element by subscript operator
+//subscript operator only used if you have element in it
+// if you get rid of SIZE: error
+
+vector<int>::iterator position = find(x.begin(), x.end(), num);
+
+// we can do:
+typedef vector<int>::iterator haha
+haha position = find(x.begin(), x.end(), num);
+
+//4. STL Algorithms:
+STL find_if():
+template <class Iterator, class Predicate> /* File: stl-find-if.cpp */
+Iterator find_if(Iterator first, Iterator last, Predicate predicate)
+//                                              ---------- function returns bool value
+{
+while (first != last && !predicate(*first))
+++first;
+return first;
+}
+
+// example:
+bool greater_than_350(int value) { return value > 350; }
+int main()
+{
+vector<int> x;
+my_initialization(x, 100);
+vector<int>::const_iterator p = find_if( x.begin(), x.end(), greater_than_350 );
+//                                                           ----------------- pass a bool function (just put the function name)
+// this function must accept data of container and return bool
+
+//5. Function pointer:
+// function name is actually a function pointer that points at function
+void haha(int a, int b){
+  cout<<"Haha"<<endl;
+  }
   
+int main(){
+  void(*hehe)(int,int) = haha;
+  //or
+  hehe = haha; //haha itself is a function pointer
+  hehe(1,2);// = haha(1,2);
+  // hehe = &haha; equivalent statement
+ // this function pointer points to an function that accept 2 int and has return type is void
+int (*f)(int x, int y) = (choice == 1) ? my_max : my_min;
+
+ 
+//6. Array of function pointer:
+double (*f[])(double x, double y) = { add, subtract, multiply, divide };
+
+//7. Function objects:
+
+
+
+
+
+
+
   
   
   
