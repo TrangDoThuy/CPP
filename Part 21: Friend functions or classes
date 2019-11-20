@@ -1,0 +1,27 @@
+// Drawback of defining operator << as a member function:
+d << (cout << "vector + vector: a + b = ") << endl;
+
+// friend member operator<< 
+class Vector
+{
+friend ostream& operator<<(ostream& os, const Vector& a);
+friend Vector operator+(const Vector& a, const Vector& b);
+// these 2 global function can have direct access to x and y
+
+public:
+Vector(double a = 0, double b = 0) : x(a), y(b) { }
+
+private:
+double x, y;
+};
+
+ostream& operator<<(ostream& os, const Vector& a)
+{ return (os << '(' << a.x << " , " << a.y << ')'); }
+Vector operator+(const Vector& a, const Vector& b)
+{ return Vector(a.x + b.x, a.y + b.y); }
+
+// if you do operator function, you always put friend keyword
+// you can friend something that doesnt exist
+
+
+
