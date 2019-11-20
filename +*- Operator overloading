@@ -1,0 +1,25 @@
+//1. add: global function:
+Vector add(const Vector& a, const Vector& b){
+return Vector(a.getx()+b.getx(),a.gety()+b.gety());
+//     ------- return by value because the thing you are returning is new object
+// if it's already existed, you should return by reference
+}
+
+//+overloading:
+Vector operator+(const Vector& a, const Vector& b){
+return Vector(a.getx()+b.getx(),a.gety()+b.gety());
+
+//operator+(1,2)
+//          ---- CANNOT, you can only use operator+ if the parameter type is defined by you
+
+//2. vector +scalar:
+d = b +0.1;
+//     --- pass 0.1 to convertion constructor, then get back of vector type object
+d = 8.2 +a;
+//  --- pass 8.2 to converion constructor.
+d = 8.2 +0.1
+// call operator from C++
+
+if you put "explicit" before the constructor, then vector + scalar and scalar + vector will NOT work
+
+// keyword "new"is also operator, so you also can redefine this keyword
