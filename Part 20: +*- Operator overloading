@@ -1,0 +1,147 @@
+// Important things:
+//Operators that can only be overloaded as member functions are: (), [], =, +=, -=, *=
+//Operators that can only be overloaded as non-member functions are: <<, >>
+//+ , -,* , ++,-- can be member function and global function
+//        ----- tricky
+
+// return type
+
+
+
+
+
+//1. add: global function:
+Vector add(const Vector& a, const Vector& b){
+return Vector(a.getx()+b.getx(),a.gety()+b.gety());
+//     ------- return by value because the thing you are returning is new object
+// if it's already existed, you should return by reference
+}
+
+//+overloading:
+Vector operator+(const Vector& a, const Vector& b){
+return Vector(a.getx()+b.getx(),a.gety()+b.gety());
+
+//operator+(1,2)
+//          ---- CANNOT, you can only use operator+ if the parameter type is defined by you
+
+//2. vector +scalar:
+d = b +0.1;
+//     --- pass 0.1 to convertion constructor, then get back of vector type object
+d = 8.2 +a;
+//  --- pass 8.2 to converion constructor.
+d = 8.2 +0.1
+// call operator from C++
+
+if you put "explicit" before the constructor, then vector + scalar and scalar + vector will NOT work
+
+// keyword "new"is also operator, so you also can redefine this keyword
+
+
+//3. Operators that can only be overloaded as member functions are: (), [], =, +=, -=, *=
+Operators that can only be overloaded as non-member functions are: <<, >>
++ , -,* , ++,-- can be member function and global function
+//        ----- tricky
+
+//4. operator<< overloading: (ostream is the type of object cout, istream is object of cin)
+ostream& operator<< (ostream& os, const Vector& a){
+//----------------------cout-------------------a-----: cout is an object of ostream type
+//--------------------& : save memory, not CONST: you are modifying ostream
+  return (os << '('<<a.getx()<<","<<a.gety()<<")");
+//------- we return os: for cout << a << b : after cout a, you still have object os to continue returning b
+// why & in &ostream: return type: you are going to return something that already existed
+  }
+  
+  //5. operator+ as a member function
+  Vector Vector::operator+(const Vector& b) const
+  // only accept object on the right of operator
+    { // Return by value; any copy constructor?
+      return Vector(x + b.x, y + b.y);
+     }
+
+//6. operator += as a member function:
+const Vector& Vector::operator+=(const Vector& b)
+//----
+{
+x += b.x; y += b.y;
+return *this; // Return by const reference. Why?
+}
+// const in the first line: constant reference: you cannot change this reference after that
+// const to prevent you to do: (a+=b)+=c
+
+//7. you CANNOT define both operator+(a,b) and a.operator(b)
+//8. operator + as a member function WILL NOT work in this case:
+cout << "scalar + vector: 5 + a = " << 5 + a << endl;
+// Because (5 + a) will be converted to  5.operator+(a)
+
+// in this case a global function operator+ is better
+
+//9. Avoid self-assignment to save time: 
+const Vector& Vector::operator=(const Vector& b)
+{
+if (this != &b) // better idea
+//HOWEVER: if(*this != b) : you CANNOT compare two objects because you haven't yet overload the operator!=
+// common error:
+class A{
+  private: int*p;
+  public:
+  A(){p= new int[3];}
+  ~A(){delete []p;}
+  const A& operator= (const A& a){
+    delete []p;
+    p= new int[3];
+    for (int i=0;i<3;++i)
+      p[i]=a.p[i];
+    return *this;
+ }
+};
+int main(){
+A obj;
+obj=obj; // you delete the array of abj already
+}
+
+//10. Copy constructor and = assign:
+Word(const Word& w): str{nullptr} { cout << "Copy: "; *this = w; }
+//                  ------------- when you delete [] str, if you doesnt set str = nullptr, you CANNOT delete the garbage address
+const Word& operator=(const Word& w) {
+if (this != &w)
+{
+cout << "op= with " << w.str << endl;
+freq = w.freq; delete [] str; setstr(w.str);
+}
+return *this;
+}
+
+//you should first define assign constructor, then in the copy constructor, you call assignment operator function
+
+//11. Operator [] as a member function:
+double operator[](int) const; // Read-only; c.f. getx() and gety()
+double& operator[](int); // Allow read and write
+//              ------- in C++ the thing you put in [] must be int
+
+//the first one is for const object to call and the second one is for non-const object to call
+
+//12. member operator ++
+Vector& operator++(); // Pre-increment returns an l-value // you can do ++a=b
+Vector operator++(int); // Post-increment returns a r-value // you CANNOT do a++=b
+//                ---- this is dummy int, we are not going to use it, but you need to out INT
+//you cannot put char or double,..
+Vector& Vector::operator++() { ++x; ++y; return *this; }
+// The dummy must be an int argument. Why is it needed?
+Vector Vector::operator++(int)
+{
+Vector temp(x,y);
+x++; y++; return temp;
+}
+// post increasement is more expensive than pre-increasement, so in the for loop you should use ++i
+
+
+
+
+
+
+
+
+  
+  
+  
+  
