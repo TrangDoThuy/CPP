@@ -1,0 +1,38 @@
+//1. static variables with file/function scope
+// error: 
+#include <iostream> /* afile.cpp */
+using namespace std;
+int a;
+int func();
+int main() {
+a = 10;
+cout << a << " " << func() << endl;
+return 0;
+}
+-----------------------------------
+int a; /* bfile.cpp */
+int func() {
+a = 20;
+return a;
+}
+// a is defined 2 times, error
+// put static keyword: this a is only for current file
+// put extern keyword: the same a
+
+// if you mark static for local variable, we can keep them alive even we leave the function
+// when you define the function 1st time, it will define static variable, but the second time, it will not
+int fibonacci(int n, int& calls){
+  static int num_calls = 0; // Initialized only once
+  calls = ++num_calls;
+ }
+ // you cannot access num_calls outside of the scoop fibonacci
+ 
+ //2. Static class data members:
+ class Student{
+  private:
+    string name;
+    static vector<string> memory;
+    // we have only one copy in your program
+ }
+ 
+
