@@ -98,6 +98,44 @@ int (*f)(int x, int y) = (choice == 1) ? my_max : my_min;
 double (*f[])(double x, double y) = { add, subtract, multiply, divide };
 
 //7. Function objects:
+// operator() overloading
+class Haha(){
+  public:
+      int operator()(int x){
+        return x+10;
+        }
+};
+int main(){
+  Haha myHaha;
+  int val = myHaha(99);
+}
+
+// example:
+class Greater_Than /* File: fo-greater-than.h */
+{
+  private:
+    int limit;
+  public:
+    Greater_Than(int a) : limit(a) { }
+    bool operator()(int value) { return value > limit; }
+};
+int main(){
+  vector<int> x; my_initialization(x, 100);
+  int limit = 0;
+  while (cin >> limit){
+    vector<int>::const_iterator p =
+    find_if(x.begin(), x.end(), Greater_Than(limit));
+//                             --------------------- supports both function pointer ans function object
+
+
+
+
+
+
+
+
+
+
 
 
 
