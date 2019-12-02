@@ -1,0 +1,11 @@
+//1. Uniform and general initialization using {}-list and prevention of narrowing
+//we want to control the type
+int x = {5}; // But = here is optional
+float y {9.8};
+int& xref {x};
+int a[] {1, 2, 3};
+// HOWEVER:
+int z {6.4}; // error
+//if you do = it ok
+int z = 6.4
+const char s4[] {'h', 'k', 'u', 's', 't', '\0'};
