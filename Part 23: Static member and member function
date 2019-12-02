@@ -35,4 +35,77 @@ int fibonacci(int n, int& calls){
     // we have only one copy in your program
  }
  
+ //3. static data member:
+ class A{
+  private:
+    int a;
+  public:
+    A(){cout<<"Contructor of A is called"<<endl;}
+};
+class Haha{
+  public: // even in private, you can still intialize them out of the class
+    static A obj; // you need to initialize it outside of class
+    static int aa; //if you dont do initialization for static members, they will not be defined
+};
+A Haha::obj; //initialitation statement
+int Haha::aa=10;
+int main(){
+  Haha haha;
+  Haha::aa=20;
+  //static data members are like global variables except that we put them in class
+  haha.aa=30; //this is doable
+}
+//**** static variables cannot be initialized in the class definition (except for const int/enum static data)
+
+//4. Static class member functions/ methods:
+class Clock /* File: clock-w-static-fcn.h */
+{
+friend ostream& operator<<(ostream& os, const Clock& c)
+{ return os << c.hour << " hr. " << c.minute << " min. "; }
+public:
+Clock() : hour(0), minute(0) { }
+static Clock HHMM(int hhmm){ 
+  return Clock(hhmm/100, hhmm%100); 
+}
+static Clock minutes(int m){
+  return Clock(m/60, m%60);
+}
+private:
+  int hour, minute;
+  Clock(int h, int m) : hour(h), minute(m) { }
+};
+main(){
+  Clock c2 = Clock::HHMM(123);
+  Clock c3 = Clock::minutes(123);
+  
+  
+//5. important things:
+// - "this" pointer is not available in static member function
+// - static method maybe used even there is no object
+// - static member function can only access static data members
+// - if you try to access static data member which is not defined, compilation error
+// - you cannot put const nor virtual for static member function
+// - cannot be overloaded with a non-static member function of the same prototype
+// static int a // without =... so a=0; normally get garbage value for local variables
+ 
+ 
+class Car
+{
+public:
+Car() { ++num_cars; } // check memory leak
+˜Car() { --num_cars; }
+void drive(int km) { total_km += km; }
+static int cars_still_running() { return num_cars; }
+private:
+static int num_cars;
+int total_km = 0;
+};
+
+Car *cp = new Car[100]; // default constructor
+Car arr[]{Car(10),Car(20)};
+
+ 
+ 
+ 
+ 
 
