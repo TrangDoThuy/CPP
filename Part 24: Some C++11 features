@@ -29,6 +29,96 @@ constexpr int addition(int x, int y){
 }
 // for inline function, we still do all thing during runtime
 
+//constexpr with constructors and objects
+constexpr Rectangle(int width, int height) : width(width), height(height) {}
+constexpr int getArea() { return width * height; }
+
+//3. range for statement:
+for (int k : { 1, 19, 54 }) // Numbers need not be successive
+cout << k*k << endl;
+
+int range[] { 2, 5, 27, 40 };
+for (int& x : range) // the numbers in array are doubled
+  x *= 2;
+  
+  
+//**** super important:
+//4. Lambdas expressions: local anonymous functions
+[ <capture-list> ] ( <parameter-list> ) mutable →<return-type> { <body> }
+//                                      ----------------------- optional
+// [=]: using all local variables, but after function, all local variables still remain unchange
+//[&]: using all local variables, but change the value of them
+//[variables]: only use local variable that you specify
+//[] dont use any local variable
+global variables can always be used in lambdas
+
+[](int a, int b){return (a>b)?a:b;}(10,20);
+//--------------------------------- the whole function is the name
+auto f=[](int a, int b){return (a>b)?a:b;}
+f(10,20);
+
+//
+int range[] = { 2, 5, 7, 10 };
+for (int& v : range) [](int& k) { return k *= 2; } (v); //change values in range
+for (int v : range) cout << v << "\t";
+
+//
+int a = 1, b = 2, c = 3;
+auto f = [=](int x) { return a*x*x + b*x + c; };
+
+//capture by value [=] you always use the set of values capture by the first time
+//
+//capture by value:
+cout << [a](int x) { return a += x; } (20) << endl; // Error!
+cout << [b](int x) mutable { return b *= x; } (20) << endl; // OK!
+// but even you modify b in the function, b out of the function will not change
+
+// [&, a] means all except a are captured by reference; a by value
+// cannot change the order a,&, the general first
+auto f = [&, a](int x) mutable ->int { a *= x; b += x; return c = a+b; };
+
+//5. delegating constructors:
+constructors allow to call another constructor from the
+same class using member initialization list.
+
+Complex(double real, double imag) : real(real), imag(imag) {}
+// Call Complex(double real, double imag)
+Complex(double real) : Complex(real, 0.0) {}
+// Call Complex(double real)
+Complex() : Complex(0.0) {}
+
+//6. Explicit conversion operators:
+class EnglishWord {
+   private: int frequency; char* str;
+  public:
+    EnglishWord(const char* s){
+       frequency = 1; str = new char[strlen(s) + 1]; strcpy(str, s); 
+       }
+    operator Word(){ 
+      cout << "conversion operator is called" << endl; return Word(str); }
+};
+void process_word(Word aObj) {}
+int main() {
+  EnglishWord engWord("Titanic");
+  Word word = engWord; // Implicit conversion by surprise
+  process_word(engWord); // Implicit conversion by surprise
+}
+
+
+//************************
+class A{
+};
+int main(){
+  A& ref=A(); // not doable, because, reference is only used for object that has name
+  const A& ref=A(); // doable, const ref allmost accepts everything, but you cannot modify it
+  A&& ref =A(); rvalue reference,only for object that doesnt have name
+  }
+
+
+
+
+
+
 
 
 
