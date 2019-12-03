@@ -1,0 +1,6 @@
+// 4 is rvalue, you never assign something to rvalue
+(x + 10) = 6;
+// after add 10, you get back rvalue
+//part1: temporary ohjects and rvalue references
+Student* sp = new Student;
+// rvalue reference:
