@@ -9,3 +9,31 @@ int z {6.4}; // error
 //if you do = it ok
 int z = 6.4
 const char s4[] {'h', 'k', 'u', 's', 't', '\0'};
+
+//2. constexpr
+//improve the performance of programs by doing computations at compile time rather than runtime
+Restrictions of constexpr function
+1. In C++11, a constexpr function should contain only ONE return
+statement. (Relaxed in C++14)
+2. Each of its parameters must be a literal type.
+3. Its return type should not be void type and other operator like prefix
+increment are not allowed in constexpr function. It must be a literal
+type (e.g. scalar type, reference type, an array of literal type).
+4. A constexpr function should refer only constant global variables.
+5. A constexpr function can call only other constexpr functions.
+6. A constexpr function has to be non-virtual.
+
+
+constexpr int addition(int x, int y){
+  return (x + y);
+}
+// for inline function, we still do all thing during runtime
+
+
+
+
+
+
+
+
+
