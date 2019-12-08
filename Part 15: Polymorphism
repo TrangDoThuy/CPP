@@ -6,7 +6,7 @@ class Hehe: public Haha{};
 int main(){
   Haha*p=new Hehe;
   cout<<typeid(*p).name()<<endl; // return 4Haha (or Haha depend on the compiler)// because at this point you dont have virtual function
-  // typeid only accepts object, and return and object of the type type_info and name() is a function
+  // typeid only accepts object, and return an object of the type type_info and name() is a function
   if(typeid(*p)==typeid(Haha)) //compiler independent
     cout<<"Haha type"<<endl;
   delete p;
@@ -15,9 +15,11 @@ int main(){
   //****** dynamic_cast():
 class Haha{
 public:
-virtual void hhh(){}};
+virtual void hhh(){}
+};
 class Hehe: public Haha{};
-  int main(){
+  
+int main(){
     Hehe*p = dynamic_cast<Hehe*>(new Haha);// if you want to use dynamic_cast you have to have atleast on virtual function
     //                    ----- result types
     // pointer of hehe type cannot point to Haha object
