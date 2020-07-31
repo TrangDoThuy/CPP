@@ -42,12 +42,14 @@ A void pointer can point to objects of any data type:
 
 
 int nValue;
+
 float fValue;
 
 
 struct Something
 {
     int n;
+    
     float f;
 };
 
@@ -55,13 +57,18 @@ struct Something
 Something sValue;
  
 void *ptr;
+
 ptr = &nValue; // valid
+
 ptr = &fValue; // valid
+
 ptr = &sValue; // valid
+
 
 However, because the void pointer does not know what type of object it is pointing to, it cannot be dereferenced directly! Rather, the void pointer must first be explicitly cast to another pointer type before it is dereferenced.
 
 int value{ 5 };
+
 void *voidPtr{ &value };
  
  
@@ -72,6 +79,7 @@ int *intPtr{ static_cast<int*>(voidPtr) }; // however, if we cast our void point
 
 
 std::cout << *intPtr << '\n'; // then we can dereference it like normal
+
 This prints:
 
 
