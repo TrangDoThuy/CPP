@@ -148,4 +148,18 @@ The extra character space is used to hold the null character at the end of the s
 
 
 If the system is already at end of file when you call fgets, then the contents of the array s are unchanged and a null  pointer is returned. A null pointer is also returned if a read error occurs. Otherwise, the return value is the pointer s. 
+## strtok
+Prototype: char * strtok (char *restrict newstring, const char *restrict delimiters)
+
+
+Description:
+
+
+A string can be split into tokens by making a series of calls to the function strtok. 
+
+
+The string to be split up is passed as the newstring argument on the first call only. The strtok function uses this to set up some internal state information. Subsequent calls to get additional tokens from the same string are indicated by passing a null pointer as the newstring argument.
+
+
+Calling strtok with another non-null newstring argument reinitializes the state information. It is guaranteed that no other library function ever calls strtok behind your back (which would mess up this internal state information).
 
