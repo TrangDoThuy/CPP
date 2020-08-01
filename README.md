@@ -102,3 +102,19 @@ extern "C" specifies that the function is defined elsewhere and uses the C-langu
 
 
 In a template declaration, extern specifies that the template has already been instantiated elsewhere. extern tells the compiler it can reuse the other instantiation, rather than create a new one at the current location.
+
+## memset
+Name: memset
+
+
+Prototype: void * memset (void *block, int c, size_t size)
+
+
+Description:
+
+
+This function copies the value of c (converted to an unsigned char) into each of the first size bytes of the object beginning at block. It returns the value of block. 
+
+
+Header files:
+string.h
