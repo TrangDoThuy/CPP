@@ -162,4 +162,7 @@ The string to be split up is passed as the newstring argument on the first call 
 
 
 Calling strtok with another non-null newstring argument reinitializes the state information. It is guaranteed that no other library function ever calls strtok behind your back (which would mess up this internal state information).
+## atoi
+int atoi (const char * str);
 
+convert string into integer
