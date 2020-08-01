@@ -118,3 +118,16 @@ This function copies the value of c (converted to an unsigned char) into each of
 
 Header files:
 string.h
+
+## malloc
+Prototype: void * malloc (size_t size)
+
+
+Description:
+
+
+This function returns a pointer to a newly allocated block size bytes long, or a null pointer if the block could not be allocated. 
+
+
+Header files:
+stdlib.h
