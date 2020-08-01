@@ -166,3 +166,9 @@ Calling strtok with another non-null newstring argument reinitializes the state 
 int atoi (const char * str);
 
 convert string into integer
+## free
+Prototype: void free (void *ptr)
+
+Description:
+
+The free function deallocates the block of memory pointed at by ptr. 
