@@ -131,3 +131,21 @@ This function returns a pointer to a newly allocated block size bytes long, or a
 
 Header files:
 stdlib.h
+
+## fgets:
+
+
+Prototype: char * fgets (char *s, int count, FILE *stream)
+
+
+Description:
+
+
+The fgets function reads characters from the stream stream up to and including a newline character and stores them in the string s, adding a null character to mark the end of the string. You must supply count characters worth of space in s, but the number of characters read is at most count 1. 
+
+
+The extra character space is used to hold the null character at the end of the string. 
+
+
+If the system is already at end of file when you call fgets, then the contents of the array s are unchanged and a null  pointer is returned. A null pointer is also returned if a read error occurs. Otherwise, the return value is the pointer s. 
+
