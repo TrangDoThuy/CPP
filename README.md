@@ -84,3 +84,21 @@ This prints:
 
 
 5
+
+## Extern
+The extern keyword may be applied to a global variable, function, or template declaration. It specifies that the symbol has external linkage. 
+
+
+The extern keyword has four meanings depending on the context:
+
+
+In a non-const global variable declaration, extern specifies that the variable or function is defined in another translation unit. The extern must be applied in all files except the one where the variable is defined.
+
+
+In a const variable declaration, it specifies that the variable has external linkage. The extern must be applied to all declarations in all files. (Global const variables have internal linkage by default.)
+
+
+extern "C" specifies that the function is defined elsewhere and uses the C-language calling convention. The extern "C" modifier may also be applied to multiple function declarations in a block.
+
+
+In a template declaration, extern specifies that the template has already been instantiated elsewhere. extern tells the compiler it can reuse the other instantiation, rather than create a new one at the current location.
